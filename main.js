@@ -1,9 +1,48 @@
-// Defining text characters for the empty and full hearts for you to use later.
+
+document.getElementById("modal").hidden = true
+
+  //function version of above
+  // function globalHideError(){
+  //   console.log(document.querySelector("#modal").hidden = true)
+  //   }
+  //   globalHideError()
+
+ 
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
 
+document.querySelectorAll('.like-glyph').forEach(heart => {
+  heart.addEventListener('click', event => {
+    mimicServerCall()
+    .then(() => {
+      handleNewLike(heart);
+    })
+    .catch(() => {
+      unHideError()
+    })
+  })
+})
+
+//functions
+
+function handleNewLike(heart){
+      if (heart.textContent === FULL_HEART){
+        heart.textContent = EMPTY_HEART
+        heart.className = "like-glyph"
+      } else if (heart.textContent === EMPTY_HEART){
+        heart.className = "activated-heart";
+        heart.textContent = FULL_HEART;
+      }
+    }
+
+
+function unHideError(){
+      document.querySelector("#modal").hidden = false;
+      document.querySelector("#modal-message").textContent = "Random server error. Try again."
+      setTimeout(() => {(document.querySelector("#modal").hidden = true)}, 3000)  
+    }
+    
 
 
 
